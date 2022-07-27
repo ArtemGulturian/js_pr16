@@ -55,25 +55,10 @@ salaries[Symbol.iterator] = function() {
 const iterator = salaries[Symbol.iterator]();
 console.log(iterator.next());
 
-// for (let res of salaries) {
-//     console.log(res);
-// }
-
-// let it = '46546458844515326';
-
-
-// for (let i = 0; i < lengthOfString; i++) {
-//     if (i >= lengthOfString-4){
-//         console.log(i);
-//     }
-// }
-
-
 
 // * * * * * * * * * * * * * *
 
 // * * * * * * * * * * * * * *
-
 // * * * * * * * * * * * * * *
 function hideTheNumberOfCard(it){
     let i = 0;
@@ -93,17 +78,14 @@ function hideTheNumberOfCard(it){
             values += ' ';
         }
         str += values;
-        
     }
     console.log(str);
 }
-
 console.log(hideTheNumberOfCard('4654645884415326'));
 
 // * * * * * * * * * * * * * *
 
 // * * * * * * * * * * * * * *
-
 // * * * * * * * * * * * * * *
 function hideTheFirstNumberOfCard(it){
     let i = 0;
@@ -123,17 +105,14 @@ function hideTheFirstNumberOfCard(it){
             values += ' ';
         }
         str += values;
-        
     }
     console.log(str);
 }
-
 console.log(hideTheFirstNumberOfCard('4654645884415326'));
 
 // * * * * * * * * * * * * * *
 
 // * * * * * * * * * * * * * *
-
 // * * * * * * * * * * * * * *
 // Write a function that accepts an array of 10 integers
 // (between 0 and 9), that returns a string of those numbers
@@ -154,7 +133,6 @@ function returnCorrectPhoneNumber (it) {
         if (i == 3) {str += ') ';}
         if (i == 6){str += '-';}
         }
-
     console.log(str);
     //return str;
 }
@@ -177,7 +155,6 @@ function returnCorrectPhoneNumber (it) {
         if (i == 4) {str += ') ';}
         if (i == 7) {str += ' - ';}
     }
-
     return str;
 }
 console.log(returnCorrectPhoneNumber('1234567890'));
@@ -230,9 +207,7 @@ function getMiddle(s)
         } else if (lengOfWord % 2 != 0){
             res = s.charAt(lengOfWord/2);
         }
-        
     }
-
     return res;
 }
 console.log(getMiddle("test"));
@@ -259,7 +234,6 @@ function reverseWords(str) {
         s = str.replace();
     }
     console.log(arr);
-    
     //return newstr;
 }
 
@@ -293,7 +267,56 @@ function alphabetPosition(t) {
 }
 console.log(alphabetPosition("The sunset sets at twelve o' clock."));
 console.log(alphabetPosition("The narwhal bacons at midnight."));
+
+// * * * * * * * * * * * * * *
+
+// * * * * * * * * * * * * * *
+// * * * * * * * * * * * * * *
+// Создайте функцию unique(arr), которая вернёт массив уникальных,
+// не повторяющихся значений массива arr.
+
+let values = ["Hare", "Krishna", "Hare", "Krishna", "Krishna", "Krishna", "Hare", "Hare", ":-O"];
+
+function unique(arr) {
+    console.log(Array.from(values));
+    return Array.from(new Set(arr));
+}
+console.log(unique(values));
 //---
-let abc = "Aabcdefghijklmnopqrstuvwxyz";
-console.log(abc.slice(0, -1));
+function f() {
+    return Array.from(new Set(arguments)).sort();
+}
+console.log(f(1, 2, 4, 1, 3, 2, 1, 3));
+ 
+// * * * * * * * * * * * * * *
+
+// * * * * * * * * * * * * * *
+// * * * * * * * * * * * * * *
+// Напишите функцию aclean(arr), которая возвращает массив слов, очищенный от анаграмм.
+// let arr = ["nap", "teachers", "cheaters", "PAN", "ear", "era", "hectares"];
+// alert( aclean(arr) ); // "nap,teachers,ear" или "PAN,cheaters,era"
+
+let arr = ["nap", "teachers", "cheaters", "PAN", "ear", "era", "hectares"];
+
+function aclean(arr) {
+    let map = new Map();
+    let sorted;
+
+    for (let word of arr) {
+        let sorted = word.toLowerCase().split("").sort().join("");
+        map.set(sorted, word);
+        console.log(map);
+    }
+    return Array.from(map.values());
+}
+console.log(aclean(arr));
+
+//---
+
+let map = new Map();
+map.set("name", "John");
+console.log(map);
+let keys = Array.from(map.keys());
+keys.push("more");
+console.log(keys);
 
