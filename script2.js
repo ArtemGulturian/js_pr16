@@ -97,3 +97,41 @@ newShop.forEach((value, key, map) => {
 });
 
 console.log(newShop);
+
+//---
+
+const array = ['Alex', 'Ann', 'Oleg', 'Alex'];
+
+function unique(arr) {
+    return Array.from(new Set(arr));
+}
+
+console.log(unique(array));
+// const set = new Set(array);
+// set.add('Ivan')
+//     .add('Oleg');
+// console.log(set);
+
+// set.delete(value);
+// set.has(value);
+// set.clear();
+// set.size;
+
+// for (let value of set) console.log(value);
+
+// set.forEach((value, valueAgaing, set) => {
+//     console.log(value, valueAgaing);
+// });
+
+// console.log(set.values());
+
+
+
+//--------------------------------------------------
+// const bigint = 21321321321321321213213323213132132132132132n;
+const sameBigint = BigInt(21321321321321321213213323213132132132132132n);
+// console.log(2n > 1n);
+
+let bigint = 1n;
+let number = 2;
+console.log(bigint + BigInt(number));

@@ -315,8 +315,377 @@ console.log(aclean(arr));
 
 let map = new Map();
 map.set("name", "John");
-console.log(map);
+// console.log(map);
 let keys = Array.from(map.keys());
 keys.push("more");
 console.log(keys);
 
+// * * * * * * * * * * * * * *
+
+// * * * * * * * * * * * * * *
+// * * * * * * * * * * * * * *
+
+function amountOfPages(summary){
+    let n ='';
+    let x=0;
+
+    for (let i = 1; i <= summary; i++) {
+        n += i;
+        if (n.length === summary) {
+            x = i;
+            break;
+        }
+    }
+    console.log('our number = ', x);
+
+    let as = String(summary);
+
+    if (as.length == 1){
+        x = n[summary - 1];
+    } else
+    if (as.length == 2) {
+        x = `${n[summary - 2]}${n[summary - 1]}`;
+    } else
+    if (as.length == 3) {
+        x = `${n[summary - 2]}${n[summary - 1]}`;
+    } else
+    if (as.length == 4) {
+        x = `${n[summary - 3]}${n[summary - 2]}${n[summary - 1]}`;
+    }
+    return Number(x);
+}
+console.log(amountOfPages(1095));
+
+function amountOfPages(summary){
+    let result = '';
+    let n = 0;
+
+    for (let i = 1; i <= summary; i++) {
+      result += i;
+      if (result.length === summary) {
+        n = i;
+        break;
+      }
+    }
+
+    return n;
+  }
+console.log(amountOfPages(1095));
+
+// * * * * * * * * * * * * * *
+
+// * * * * * * * * * * * * * *
+// * * * * * * * * * * * * * *
+
+function isPangram(string){
+    string = string.toLowerCase();
+    return "abcdefghijklmnopqrstuvwxyz".split("").every(function(x){
+      return string.indexOf(x) !== -1;
+    });
+}
+
+// С другим методом и строка каждый раз преобразовывается в коллбэке
+function isPangram(string){
+    return 'abcdefghijklmnopqrstuvwxyz'
+      .split('')
+      .every((x) => string.toLowerCase().includes(x));
+}
+
+// При помощи цикла
+function isPangram(str) {
+    letters: for (var c = 0; c < 26; c++) {
+        for (let i = 0; i < str.length; i++) {
+            let s = str.charCodeAt(i)
+            if (s < 65 || s > 90 && s < 97 || s > 122) continue;
+            if (s === 65 + c || s === 97 + c) continue letters;
+        }
+        return false;
+    }
+    return true;
+}
+
+// При помощи Set
+function isPangram(string) {
+    return new Set(string.toLocaleLowerCase().replace(/[^a-z]/gi, '').split('')).size === 26;
+}
+
+// С использованием регулярных выражений
+function isPangram(string){
+    return (string.match(/([a-z])(?!.*\1)/ig) || []).length === 26;
+}
+console.log(isPangram("The quick brown fox jumps over the lazy dog"));
+
+// * * * * * * * * * * * * * *
+
+// * * * * * * * * * * * * * *
+// * * * * * * * * * * * * * *
+
+function deepCount(a) {
+    // let q = 0;
+    // for (let i = 1; i <= a.length; i++) {
+    //     q = i;
+    // }
+    // console.log(q);
+
+    let count = a.length;
+    for (let i=0; i<a.length; i++) if (Array.isArray(a[i])) count += deepCount(a[i]);
+    return count;
+}
+console.log(deepCount(["1", 5, "3", ["10"]]));
+
+function deepCount(a){
+    return a.reduce((s,e)=>s+(Array.isArray(e) ? deepCount(e) : 0),a.length);
+}
+
+// * * * * * * * * * * * * * *
+
+// * * * * * * * * * * * * * *
+// * * * * * * * * * * * * * *
+// You will be given a number and you will need to return it as a string in Expanded Form.
+// For example: expandedForm(12); Should return '10 + 2'
+
+function expandedForm(num) {
+    let res = '';
+    let string = String(num);
+    let q = 0;
+    
+    for (let i = 1; i <=string.length; i++) {
+        q = i;
+    }
+    if (q == 2) {
+        let a = num % 10;
+        let b = num - a;
+
+        res += `${b} + ${a}`;
+    }
+    if (q == 3) {
+        let a = num % 10;
+        let b = (num % 100) - a;
+        let c = num - (num % 100);
+
+        res += `${c} + ${b} + ${a}`;
+    }
+    if (q == 4){
+        let a = num % 10;
+        let b = (num % 100) - a;
+        let c = (num % 1000) - b - a;
+        let d = num - (num % 1000);
+        if (b != 0){
+            res += `${d} + ${c} + ${b} + ${a}`;
+        }
+        if (b == 0){
+            res += `${d} + ${c} + ${a}`;
+        }
+    }
+    if (q == 5){
+        let a = num % 10;
+        let b = (num % 100) - a;
+        let c = (num % 1000) - (num % 100) - a;
+        let d = num - (num % 1000) - (num - (num % 10000));
+        let e = num - (num % 10000);
+        if (b != 0){
+            res += `${e} + ${d} + ${c} + ${b} + ${a}`;
+        }
+        if (b == 0){
+            res += `${e} + ${d} + ${c} + ${a}`;
+        }
+        if (d == 0 && b == 0){
+            res += `${e} + ${c} + ${a}`;
+        }
+    }
+    if (q == 6){
+        let a = num % 10;
+        let b = (num % 100) - a;
+        let c = (num % 1000) - b - a;
+        let d = num - (num % 1000) - (num - (num % 10000));
+        let e = num - (num % 10000) - (num - (num % 100000));
+        let f = num - (num % 100000);
+        if (b != 0){
+            res += `${f} + ${e} + ${d} + ${c} + ${b} + ${a}`;
+        }
+        if (b == 0){
+            res += `${e} + ${d} + ${c} + ${a}`;
+        }
+    }
+    if (q == 7){
+        let a = num % 10;
+        let b = (num % 100) - a;
+        let c = (num % 1000) - b - a;
+        let d = num - (num % 1000) - (num - (num % 10000));
+        let e = num - (num % 10000) - (num - (num % 100000));
+        let f = num - (num % 100000) - (num - (num % 1000000));
+        let g = num - (num % 1000000);
+        if (b != 0){
+            res += `${g} + ${f} + ${e} + ${d} + ${c} + ${b} + ${a}`;
+        }
+        if (b == 0){
+            res += `${e} + ${d} + ${c} + ${a}`;
+        }
+    }
+    return res;
+}
+console.log(expandedForm(70304));
+console.log(expandedForm(4982342));
+
+// ----- 
+
+function expandedForm(num) {
+    let res = '';
+    let n = '';
+    let arr = [];
+
+    let desyatye = num % 10;
+    arr.push(desyatye);
+    let sotie = num % 100;
+    arr.push(sotie);
+    let tysiachnie = (num % 1000) - (num % 100) - (num % 10);
+    arr.push(tysiachnie);
+    
+    console.log(arr);
+
+    for (let val of arr){
+        if (val > 0){
+            res += `${tysiachnie} + ${sotie-desyatye} + ${desyatye}`;
+        }
+    }
+    return 'res = '+res;
+}
+console.log(expandedForm(7004));
+
+
+function secondTask() {
+    const data = [5, 10, 'Shopping', 20, 'Homework'];
+        for (let i = 0; i < data.length; i++){
+            
+            if (typeof(data[i]) === 'string'){
+                data[i] = `${data[i]} - done`;
+            } else
+            if (typeof(data[i]) === 'number'){
+                data[i] = data[i] * 2;
+            }
+        }
+    return data;
+}
+console.log(secondTask([5, 10, 'Shopping', 20, 'Homework']));
+
+//----
+
+function peramid() {
+    const lines = 7;
+    let result = '';
+
+    for (let i = 0; i <= lines; i++) {
+        for (let j = 0; j < lines - i; j++){
+            result += " ";
+        }
+        for (let j = 0; j < 2 * i + 1; j++){
+            result += "*";
+        }
+        for (let j = 0; j < 2 * i + 0.5; j++){
+            result += " ^.";
+        }
+        result += '\n';
+    }
+    return result;
+}
+console.log(peramid());
+
+// * * * * * * * * * * * * * *
+
+// * * * * * * * * * * * * * *
+// * * * * * * * * * * * * * *
+// Given a string of words, you need to find the highest scoring word.
+// Each letter of a word scores points according to its position in the alphabet: a = 1, b = 2, c = 3 etc.
+// You need to return the highest scoring word as a string.
+// If two words score the same, return the word that appears earliest in the original string.
+// All letters will be lowercase and all inputs will be valid.
+
+function high(x) {
+    let q = 0;
+    let abc = 'abcdefghijklmnopqrstuvwxyz';
+    let abcLow = abc.toLocaleLowerCase();
+    let w = x.split(' ');
+
+        for (let i = 0; i <= w.length; i++) {
+            for (let j = 1; j <= abcLow.length; j++) {
+                if (x[i] === abcLow[j]){
+                    q = j;
+                }
+            }
+        }
+        console.log(q);
+        // console.log(w[0]);
+        // console.log("w[1] = ", w[1]);
+        // console.log(w[2]);
+        // console.log(w[3]);
+        // console.log(w[4]);
+        // console.log(w[5]);
+}
+console.log(high('man i need a taxi up to ubud'));
+
+function high(x) {
+    let q = 0;
+    let abc = 'Aabcdefghijklmnopqrstuvwxyz';
+    let abcLow = abc.toLowerCase();
+    let w = x.split(' ');
+    let zx = [];
+    let qw=0;
+
+    for (let val of w) {
+        // console.log(val);
+        for (let i = 0; i < val.length; i++) {
+            for (let j = 0; j <= abc.length; j++) {
+                if (val[i] == abc[j]){
+                    q += j;
+                    // console.log(j);
+                }
+            }
+        }
+        zx.push(q); q = 0;
+        // console.log(zx);
+    }
+    let maxNumber = Math.max.apply(null, zx);
+
+    for (let i = 0; i < zx.length; i++) {
+        if (zx[i] === maxNumber){
+            qw = i;
+        }
+    }
+    for (let i = 0; i < zx.length; i++){
+        if (zx[i] === zx[i+1]){
+            qw = 0;
+        }
+    }
+    let as = String(w[qw]);
+    return as;
+}
+console.log(high('j t a a'));
+
+
+
+// * * * * * * * * * * * * * *
+
+// * * * * * * * * * * * * * *
+// * * * * * * * * * * * * * *
+// #Find the missing letter / Write a method that takes an array of consecutive (increasing) letters as input and that returns the missing letter in the array.
+// You will always get an valid array. And it will be always exactly one letter be missing. The length of the array will always be at least 2.
+// The array will always contain letters in only one case. Example:
+// ['a','b','c','d','f'] -> 'e' ['O','Q','R','S'] -> 'P'
+
+function findMissingLetter(array){
+    let q = 0;
+    let abc = 'abcdefghijklmnopqrstuvwxyz';
+    let abcLow = abc.toLocaleLowerCase();
+
+    for (let i = 0; i <= w.length; i++) {
+        for (let j = 0; j <= abcLow.length; j++) {
+            if (x[i] === abcLow[j]){
+                q = j;
+            }
+        }
+    }
+    console.log(q);
+
+  
+    return ' ';
+}
