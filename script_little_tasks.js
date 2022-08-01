@@ -599,11 +599,11 @@ console.log(peramid());
 // You need to return the highest scoring word as a string.
 // If two words score the same, return the word that appears earliest in the original string.
 // All letters will be lowercase and all inputs will be valid.
-
+/*
 function high(x) {
     let q = 0;
     let abc = 'abcdefghijklmnopqrstuvwxyz';
-    let abcLow = abc.toLocaleLowerCase();
+    let abcLow = abc.toLowerCase();
     let w = x.split(' ');
 
         for (let i = 0; i <= w.length; i++) {
@@ -614,15 +614,9 @@ function high(x) {
             }
         }
         console.log(q);
-        // console.log(w[0]);
-        // console.log("w[1] = ", w[1]);
-        // console.log(w[2]);
-        // console.log(w[3]);
-        // console.log(w[4]);
-        // console.log(w[5]);
 }
 console.log(high('man i need a taxi up to ubud'));
-
+*/
 function high(x) {
     let q = 0;
     let abc = 'Aabcdefghijklmnopqrstuvwxyz';
@@ -632,17 +626,14 @@ function high(x) {
     let qw=0;
 
     for (let val of w) {
-        // console.log(val);
         for (let i = 0; i < val.length; i++) {
             for (let j = 0; j <= abc.length; j++) {
                 if (val[i] == abc[j]){
                     q += j;
-                    // console.log(j);
                 }
             }
         }
         zx.push(q); q = 0;
-        // console.log(zx);
     }
     let maxNumber = Math.max.apply(null, zx);
 
@@ -672,20 +663,99 @@ console.log(high('j t a a'));
 // The array will always contain letters in only one case. Example:
 // ['a','b','c','d','f'] -> 'e' ['O','Q','R','S'] -> 'P'
 
-function findMissingLetter(array){
-    let q = 0;
-    let abc = 'abcdefghijklmnopqrstuvwxyz';
-    let abcLow = abc.toLocaleLowerCase();
+/*
+function find(a){
+    // let qw = a.toLowerCase();
+    // let as = a.toUperCase();
+    let isUpperCase = a.toUpperCase()==a;
 
-    for (let i = 0; i <= w.length; i++) {
-        for (let j = 0; j <= abcLow.length; j++) {
-            if (x[i] === abcLow[j]){
-                q = j;
-            }
+    if (isUpperCase){
+        console.log('upercase');
+    } else {console.log('lowercase');}
+}
+find('a');
+*/
+/*
+function theSame() {
+    let a = ['O', 'P', 'Q', 'R'];
+    let b = ['O', 'R', 'Q', 'P'];
+
+    // if(a == b) {console.log('true');}
+    // else if (a != b){console.log('false');}
+    for (let i = 0; i < a.length; i++) {
+        if (a[i] != b[i]){console.log(a[i], b[i]); console.log(a[i])}
+    }
+}
+theSame();
+*/
+
+function findMissingLetter(array){
+    let a='';
+    let ar = [];
+    let abc = 'abcdefghijklmnopqrstuvwxyz';
+    let upAbc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let uperCase;
+    let firstCharIndex = 0;
+    let firstChar = array[0];
+    let zaq = '';
+
+    // is to upper case??
+    for (let char of array){
+        let isUpperCase = char.toUpperCase()==char;
+        if (isUpperCase){
+            uperCase = true;
+            a = upAbc;
+        } else if (!isUpperCase){
+            uperCase = false;
+            a = abc;
         }
     }
-    console.log(q);
 
-  
-    return ' ';
+    // function to made all elements of array to LowerCase()
+    function toLowerChart(array){
+        let ar = [];
+        
+        for (let i = 0; i < array.length; i++){
+            ar.push(array[i].toLowerCase());
+        }
+        return ar;
+    }
+    // console.log(toLowerChart(array));
+    
+    for(let i = 0; i < abc.length; i++){
+        if (a[i] === firstChar){
+            firstCharIndex = i;
+            // console.log(i);
+        }
+    }
+
+    let newArr = Array.from(a).slice(firstCharIndex, (firstCharIndex)+array.length);
+    
+    for (let i = 0; i < newArr.length; i++) {
+        if (newArr[i] != array[i]){
+            console.log(newArr[i]);
+            zaq = newArr[i]; break;
+        }
+    }
+    return zaq;
 }
+findMissingLetter(['O','Q','R','S']);
+findMissingLetter(['a','b','c','d','f']);
+findMissingLetter(['H', 'I', 'K']);
+findMissingLetter(['m', 'n', 'o', 'p', 'r', 's', 't', 'u']);
+
+//---
+
+function findMissingLetter(array) {
+    let first = array[0].charCodeAt(0);
+    for (let i = 1; i < array.length; i++) {
+      if (first + i !== array[i].charCodeAt(0)) {
+        return String.fromCharCode(first + i);
+      }
+    }
+    throw new Error("Invalid input");
+  }
+console.log(findMissingLetter(['O','Q','R','S']));
+console.log(findMissingLetter(['a','b','c','d','f']));
+console.log(findMissingLetter(['H', 'I', 'K']));
+console.log(findMissingLetter(['m', 'n', 'o', 'p', 'r', 's', 't', 'u']));
